@@ -1,0 +1,45 @@
+.unity-toggle {
+    flex-direction: column;
+    width: 40px;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.unity-toggle__checkmark {
+    display: none;
+}
+
+.unity-toggle__input {
+    display: none;
+}
+
+.indicator {
+    width: 18px;
+    height: 4px;
+    background-color: rgb(42, 42, 50);
+    border-radius: 3px;
+}
+
+.unity-toggle:checked > .indicator {
+    background-color: rgb(0, 255, 102);
+}
+
+.icon {
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    -unity-background-image-tint-color: rgb(170, 178, 204);
+    -unity-background-scale-mode: scale-to-fit;
+    width: 32px;
+    height: 32px;
+}
+
+.unity-toggle:hover > .icon {
+    -unity-background-image-tint-color: rgb(128, 134, 153);
+}
+
+.unity-toggle:active > .icon {
+    -unity-background-image-tint-color: rgb(170, 178, 204);
+}

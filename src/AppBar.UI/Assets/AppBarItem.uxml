@@ -1,0 +1,15 @@
+<!-- This Source Code Form is subject to the terms of the Mozilla Public
+   - License, v. 2.0. If a copy of the MPL was not distributed with this
+   - file, You can obtain one at https://mozilla.org/MPL/2.0/. -->
+
+<ui:UXML xmlns:ui="UnityEngine.UIElements"
+         xsi="http://www.w3.org/2001/XMLSchema-instance"
+         engine="UnityEngine.UIElements"
+         noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style src="AppBarItem.uss"/>
+    <ui:Toggle>
+        <ui:VisualElement class="indicator"/>
+        <ui:VisualElement class="icon"/>
+    </ui:Toggle>
+</ui:UXML>

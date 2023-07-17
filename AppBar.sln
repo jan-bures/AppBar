@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{25A5CF9A-3154-4A06-ADE1-E1E959BF8AB2}") = "AppBar", "src/AppBar/AppBar.csproj", "{B695191B-DA98-4360-AE7F-10C3A8072DF7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+		Deploy|Any CPU = Deploy|Any CPU
+		DeployAndRun|Any CPU = DeployAndRun|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.DeployAndRun|Any CPU.ActiveCfg = DeployAndRun|Any CPU
+		{B695191B-DA98-4360-AE7F-10C3A8072DF7}.DeployAndRun|Any CPU.Build.0 = DeployAndRun|Any CPU
+	EndGlobalSection
+EndGlobal

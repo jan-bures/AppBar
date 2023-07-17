@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+    <!-- NuGet package configuration -->
+    <PropertyGroup Label="NuGet package configuration">
+        <PackageIcon Label="Optional filename of your NuGet package's icon">icon.png</PackageIcon>
+        <PackageId Label="ID of your NuGet package">$(ProjectName)</PackageId>
+        <!-- For example https://raw.githubusercontent.com/YourUsername/YourRepo/main/LICENSE -->
+        <PackageLicenseUrl Label="URL to the license of your mod">https://raw.githubusercontent.com/jan-bures/AppBar/main/LICENSE</PackageLicenseUrl>
+        <PackageOutputPath Label="Path to the NuGet package output">../../nuget</PackageOutputPath>
+        <PackageProjectUrl Label="Optional URL to your project's website (e.g. forum post)">https://github.com/jan-bures/AppBar</PackageProjectUrl>
+        <PackageReadmeFile Label="Filename of your README file">README.md</PackageReadmeFile>
+        <PackageTags Label="Optional tags of your NuGet package">ksp2;mod;library</PackageTags>
+    </PropertyGroup>
+    <Target Name="IncludeAllFilesInTargetDir" AfterTargets="Build">
+        <ItemGroup>
+            <None Label="Optional path to NuGet package's icon" Include="$(SolutionDir)/images/icon.png" Pack="true" PackagePath="/"/>
+            <None Label="Path to LICENSE file" Include="$(SolutionDir)/LICENSE" Pack="true" PackagePath="/"/>
+            <None Label="Path to README file" Include="$(SolutionDir)/README.md" Pack="true" PackagePath="/"/>
+            <None Label="Path to the target build" Include="$(TargetDir)/**" Pack="true" PackagePath="/lib/$(TargetFramework)"/>
+        </ItemGroup>
+    </Target>
+
+    <!-- Project references -->
+    <ItemGroup Label="NuGet package references">
+        <!-- Add references to any NuGet packages you want to use in your mod here -->
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.Core" Version="5.*"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="2.*"/>
+        <PackageReference Include="HarmonyX" Version="2.10.1"/>
+        <PackageReference Include="KerbalSpaceProgram2.GameLibs" Version="0.1.3" PrivateAssets="all"/>
+        <PackageReference Include="SpaceWarp" Version="1.3.0"/>
+        <PackageReference Include="UnityEngine.Modules" Version="2020.3.33.1"/>
+    </ItemGroup>
+</Project>
