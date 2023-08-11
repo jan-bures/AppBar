@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,7 +14,6 @@ namespace AppBar.UI
         private VisualElement _appBar;
         private VisualElement _appBarMenu;
         private VisualElement _appBarMenuContainer;
-        private Button _appBarMenuButton;
 
         private bool IsVisible
         {
@@ -34,6 +34,9 @@ namespace AppBar.UI
             }
         }
 
+        private bool _isLocked = true;
+        private bool _isRenaming = false;
+
         private void Start()
         {
             _root = GetComponent<UIDocument>().rootVisualElement;
@@ -41,31 +44,76 @@ namespace AppBar.UI
 
             _appBarMenu = _root.Q(className: "app-bar-menu");
             _appBarMenuContainer = _appBarMenu.Q(className: "app-bar-menu-container");
-            _appBarMenuButton = _appBar.Q<Button>(className: "app-bar-menu-button");
 
-            AddItem("Item 1", () => {});
-            AddItem("Item 2", () => {});
-            AddItem("Item 3", () => {});
+            var appBarLabel = _appBar.Q<Label>(className: "app-bar-label");
+            var appBarTextField = _appBar.Q<TextField>(className: "app-bar-text-field");
+            appBarTextField.value = appBarLabel.text;
+            appBarTextField.RegisterValueChangedCallback(evt =>
+            {
+                appBarLabel.text = evt.newValue;
+            });
+
+            _appBar.Q<Button>(className: "app-bar-menu-button").clicked += () =>
+            {
+                IsVisible = !IsVisible;
+            };
+
+            AddItem("Unlock position", button =>
+            {
+                _isLocked = !_isLocked;
+                GetComponent<MockupButtons>().Manipulator.IsEnabled = !_isLocked;
+
+                button.text = _isLocked ? "Unlock position" : "Lock position";
+                _appBar.ToggleInClassList("unlocked");
+            });
+
+            AddItem("Rename", button =>
+            {
+                _isRenaming = !_isRenaming;
+
+                _appBar.ToggleInClassList("rename");
+                button.text = _isRenaming ? "Save name" : "Rename";
+
+                if (_isRenaming)
+                {
+                    appBarTextField.Focus();
+                }
+                else
+                {
+                    appBarTextField.Blur();
+                }
+            });
 
             IsVisible = false;
 
             _root.RegisterCallback<MouseDownEvent>(_ => IsVisible = false);
             _appBarMenu.RegisterCallback<MouseDownEvent>(e => e.StopPropagation());
 
-            _appBarMenuButton.clicked += () =>
-            {
-                IsVisible = !IsVisible;
-            };
+
         }
 
         #region Menu Items
 
-        public Button AddItem(string buttonText, Action onClick, int index)
+        public Button AddItem(string buttonText, Action<Button> onClick, int index)
         {
-            var menuItem = new Button(onClick)
+            var menuItem = new Button
             {
                 text = buttonText
             };
+
+            menuItem.clickable = new Clickable(() =>
+            {
+                try
+                {
+                    onClick(menuItem);
+                }
+                catch (Exception e)
+                {
+                    Debug.LogError(e);
+                }
+
+                IsVisible = false;
+            });
             menuItem.AddToClassList("app-bar-menu-item");
 
             _appBarMenuContainer.Insert(index, menuItem);
@@ -75,7 +123,7 @@ namespace AppBar.UI
             return menuItem;
         }
 
-        public Button AddItem(string buttonText, Action onClick)
+        public Button AddItem(string buttonText, Action<Button> onClick)
         {
             return AddItem(buttonText, onClick, _appBarMenuContainer.childCount);
         }
@@ -103,19 +151,15 @@ namespace AppBar.UI
         {
             if (IsVisible)
             {
-                StartCoroutine(RecalculateCoroutine());
-                //_appBar.schedule.Execute(UpdateMenuPosition).StartingIn(1);
+                StartCoroutine(UpdateGeometry());
             }
         }
 
-        private IEnumerator RecalculateCoroutine()
+        private IEnumerator UpdateGeometry()
         {
+            // Wait for next frame to ensure that the menu has been rendered
             yield return null;
-            UpdateMenuPosition();
-        }
 
-        private void UpdateMenuPosition()
-        {
             // Get screen size
             var screenWidth = Screen.width;
             var screenHeight = Screen.height;
@@ -161,7 +205,7 @@ namespace AppBar.UI
 
             // Set menu position
             _appBarMenu.style.left = x - xMin;
-            _appBarMenu.style.top = y - yMin;
+            _appBarMenu.style.top = y - yMax;
         }
 
         #endregion

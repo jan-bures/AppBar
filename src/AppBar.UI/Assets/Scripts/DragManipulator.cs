@@ -7,16 +7,14 @@ namespace AppBar.UI
     /// <summary>
     /// A simple drag manipulator for UIElements.
     /// </summary>
-    public class DragManipulator : IManipulator
+    internal class DragManipulator : IManipulator
     {
-        private VisualElement _target;
-        private Vector3 _offset;
-        private PickingMode _mode;
+        public DragManipulator(bool isEnabled = false)
+        {
+            IsEnabled = isEnabled;
+        }
 
-        /// <summary>
-        /// Is the target currently being dragged?
-        /// </summary>
-        private bool Dragging { get; set; }
+        public bool IsEnabled { get; set; }
 
         /// <summary>
         /// The target element to drag.
@@ -34,8 +32,22 @@ namespace AppBar.UI
             }
         }
 
+        private VisualElement _target;
+        private Vector3 _offset;
+        private PickingMode _mode;
+
+        /// <summary>
+        /// Is the target currently being dragged?
+        /// </summary>
+        private bool _isDragging;
+
         private void DragBegin(PointerDownEvent evt)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+
             var textFieldClass = typeof(TextField).GetNestedType("TextInput", BindingFlags.NonPublic);
             if (textFieldClass != null && textFieldClass.IsInstanceOfType(evt.target))
             {
@@ -46,20 +58,25 @@ namespace AppBar.UI
             _mode = target.pickingMode;
             target.pickingMode = PickingMode.Ignore;
             _offset = evt.localPosition;
-            Dragging = true;
+            _isDragging = true;
             target.CapturePointer(evt.pointerId);
         }
 
         private void DragEnd(PointerUpEvent evt)
         {
+            if (!IsEnabled)
+            {
+                return;
+            }
+
             target.ReleasePointer(evt.pointerId);
-            Dragging = false;
+            _isDragging = false;
             target.pickingMode = _mode;
         }
 
         private void PointerMove(PointerMoveEvent evt)
         {
-            if (!Dragging)
+            if (!IsEnabled || !_isDragging)
             {
                 return;
             }

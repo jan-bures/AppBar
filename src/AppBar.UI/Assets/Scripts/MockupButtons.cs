@@ -11,6 +11,8 @@ public class MockupButtons : MonoBehaviour
     private const float ReferenceWidth = 1920;
     private const float ReferenceHeight = 1080;
 
+    internal DragManipulator Manipulator;
+
     private void Awake()
     {
         var appBarContainer = GetComponent<UIDocument>().rootVisualElement;
@@ -27,7 +29,8 @@ public class MockupButtons : MonoBehaviour
         appBarContainer.style.height = ReferenceHeight;
 
         var appBar1 = appBarTemplate.Instantiate();
-        appBar1.AddManipulator(new DragManipulator());
+        Manipulator = new DragManipulator();
+        appBar1.AddManipulator(Manipulator);
         CenterByDefault(appBar1);
         var appBar2 = appBarTemplate.Instantiate();
         appBar2.Q<Label>(classes: "app-bar-label").text = "Other App Bar";
@@ -35,7 +38,7 @@ public class MockupButtons : MonoBehaviour
         CenterByDefault(appBar2);
 
         appBarContainer.Add(appBar1);
-        appBarContainer.Add(appBar2);
+        // appBarContainer.Add(appBar2);
 
         var appBarItem1 = appBarItemTemplate.Instantiate();
         appBarItem1.Q<VisualElement>(classes: "icon").style.backgroundImage = icon1;
