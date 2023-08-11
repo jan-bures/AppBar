@@ -69,7 +69,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
 
 # Packed asset bundles
-/[Aa]ssets/[Aa]sset[Bb]undles/*
+/[Aa]ssets/[Aa]sset[Bb]undles
 /[Aa]ssets/[Aa]sset[Bb]undles.meta
 
 # Temporary auto-generated Android Assets
