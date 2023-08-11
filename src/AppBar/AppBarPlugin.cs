@@ -51,7 +51,7 @@ public class AppBarPlugin : BaseSpaceWarpPlugin
         TestAppBar();
     }
 
-    private void TestAppBar()
+    private static void TestAppBar()
     {
         var icon1 = AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/cloud.png");
         var icon2 = AssetManager.GetAsset<Texture2D>($"{ModGuid}/images/house.png");
@@ -67,18 +67,18 @@ public class AppBarPlugin : BaseSpaceWarpPlugin
             style =
             {
                 alignItems = Align.FlexStart
-            }
+            },
+            pickingMode = PickingMode.Ignore
         };
         Window.CreateFromElement(appBarContainer, "AppBar Container");
         appBarContainer.style.width = ReferenceResolution.Width;
         appBarContainer.style.height = ReferenceResolution.Height;
 
         var appBar1 = appBarTemplate.Instantiate();
-        appBar1.Q<Label>(classes: "app-bar-label").text = "My First App Bar";
+        appBar1.Q<Label>(classes: "app-bar-label").text = "OTHER APP BAR";
         appBar1.MakeDraggable();
         appBar1.CenterByDefault();
         var appBar2 = appBarTemplate.Instantiate();
-        appBar1.Q<Label>(classes: "app-bar-label").text = "Other App Bar";
         appBar2.MakeDraggable();
         appBar2.CenterByDefault();
 
@@ -96,11 +96,11 @@ public class AppBarPlugin : BaseSpaceWarpPlugin
         var appBarItem5 = appBarItemTemplate.Instantiate();
         appBarItem5.Q<VisualElement>(classes: "icon").style.backgroundImage = icon5;
 
-        appBar1.Q<VisualElement>(classes: "app-bar-container").Add(appBarItem1);
-        appBar1.Q<VisualElement>(classes: "app-bar-container").Add(appBarItem2);
-        appBar1.Q<VisualElement>(classes: "app-bar-container").Add(appBarItem3);
+        appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem1);
+        appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem2);
+        appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem3);
 
-        appBar2.Q<VisualElement>(classes: "app-bar-container").Add(appBarItem4);
-        appBar2.Q<VisualElement>(classes: "app-bar-container").Add(appBarItem5);
+        appBar2.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem4);
+        appBar2.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem5);
     }
 }

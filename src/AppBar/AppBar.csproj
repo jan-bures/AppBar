@@ -4,7 +4,6 @@
     <PropertyGroup Label="NuGet package configuration">
         <PackageIcon Label="Optional filename of your NuGet package's icon">icon.png</PackageIcon>
         <PackageId Label="ID of your NuGet package">$(ProjectName)</PackageId>
-        <!-- For example https://raw.githubusercontent.com/YourUsername/YourRepo/main/LICENSE -->
         <PackageLicenseUrl Label="URL to the license of your mod">https://raw.githubusercontent.com/jan-bures/AppBar/main/LICENSE</PackageLicenseUrl>
         <PackageOutputPath Label="Path to the NuGet package output">../../nuget</PackageOutputPath>
         <PackageProjectUrl Label="Optional URL to your project's website (e.g. forum post)">https://github.com/jan-bures/AppBar</PackageProjectUrl>

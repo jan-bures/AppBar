@@ -1,0 +1,21 @@
+:root {
+    --icon-tint: rgb(170, 178, 204);
+    --icon-tint-hover: rgb(128, 134, 153);
+    --font-pixelated: url('/Assets/Fonts/SF Pixelate SDF.asset');
+}
+
+.icon {
+    border-width: 0;
+    -unity-background-image-tint-color: var(--icon-tint);
+    -unity-background-scale-mode: scale-to-fit;
+    width: 24px;
+    height: 24px;
+}
+
+*:hover > .icon {
+    -unity-background-image-tint-color: var(--icon-tint-hover);
+}
+
+*:active > .icon {
+    -unity-background-image-tint-color: var(--icon-tint);
+}
