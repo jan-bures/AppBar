@@ -1,10 +1,9 @@
 using System;
 using System.Collections;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AppBar.UI
+namespace AppBarLib.UI
 {
     public class AppBarMenu : MonoBehaviour
     {

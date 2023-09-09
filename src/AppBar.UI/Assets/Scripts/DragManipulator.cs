@@ -2,19 +2,21 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace AppBar.UI
+namespace AppBarLib.UI
 {
     /// <summary>
     /// A simple drag manipulator for UIElements.
     /// </summary>
     internal class DragManipulator : IManipulator
     {
-        public DragManipulator(bool isEnabled = false)
+        public DragManipulator(bool allowDraggingOffScreen = true, bool isEnabled = false)
         {
+            AllowDraggingOffScreen = allowDraggingOffScreen;
             IsEnabled = isEnabled;
         }
 
         public bool IsEnabled { get; set; }
+        public bool AllowDraggingOffScreen { get; set; }
 
         /// <summary>
         /// The target element to drag.
@@ -83,10 +85,14 @@ namespace AppBar.UI
 
             var delta = evt.localPosition - _offset;
             var newPosition = target.transform.position + delta;
-            var x = Mathf.Clamp(newPosition.x, 0, Screen.width - target.resolvedStyle.width);
-            var y = Mathf.Clamp(newPosition.y, 0, Screen.height - target.resolvedStyle.height);
 
-            target.transform.position = new Vector3(x, y);
+            if (!AllowDraggingOffScreen)
+            {
+                newPosition.x = Mathf.Clamp(newPosition.x, 0, Screen.width - target.resolvedStyle.width);
+                newPosition.y = Mathf.Clamp(newPosition.y, 0, Screen.height - target.resolvedStyle.height);
+            }
+
+            target.transform.position = newPosition;
         }
     }
 }

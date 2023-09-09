@@ -1,6 +1,6 @@
 {
     "name": "Scripts",
-    "rootNamespace": "",
+    "rootNamespace": "AppBarLib",
     "references": [
         "GUID:023ac9b81facd43ebbb2a6f1c6252835"
     ],

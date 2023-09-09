@@ -1,5 +1,5 @@
 using System;
-using AppBar.UI;
+using AppBarLib.UI;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -29,16 +29,10 @@ public class MockupButtons : MonoBehaviour
         appBarContainer.style.height = ReferenceHeight;
 
         var appBar1 = appBarTemplate.Instantiate();
-        Manipulator = new DragManipulator();
+        Manipulator = new DragManipulator(false);
         appBar1.AddManipulator(Manipulator);
         CenterByDefault(appBar1);
-        var appBar2 = appBarTemplate.Instantiate();
-        appBar2.Q<Label>(classes: "app-bar-label").text = "Other App Bar";
-        appBar2.AddManipulator(new DragManipulator());
-        CenterByDefault(appBar2);
-
         appBarContainer.Add(appBar1);
-        // appBarContainer.Add(appBar2);
 
         var appBarItem1 = appBarItemTemplate.Instantiate();
         appBarItem1.Q<VisualElement>(classes: "icon").style.backgroundImage = icon1;
@@ -54,9 +48,6 @@ public class MockupButtons : MonoBehaviour
         appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem1);
         appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem2);
         appBar1.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem3);
-
-        appBar2.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem4);
-        appBar2.Q<VisualElement>(classes: "app-bar-container-items").Add(appBarItem5);
     }
 
     /* #region Helpers */
