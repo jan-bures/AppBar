@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AppBarLib.Core.Messaging
+namespace AppBarLib.Core
 {
     /// <summary>
     /// A generic observable value.

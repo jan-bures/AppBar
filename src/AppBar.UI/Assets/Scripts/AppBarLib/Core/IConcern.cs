@@ -1,10 +1,8 @@
 ﻿using System;
-using AppBarLib.Core;
 
 namespace Scripts.AppBarLib.Core
 {
-    internal interface IConcern : IDisposable
+    internal interface IConcern : IInitializable, IDisposable
     {
-        public Context Context { get; }
     }
 }

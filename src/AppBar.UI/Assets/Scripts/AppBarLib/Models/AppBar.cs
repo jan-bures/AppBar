@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using AppBarLib.Core;
 using Newtonsoft.Json;
-using Scripts.AppBarLib.Core;
 using UnityEngine;
 
 namespace AppBarLib.Models
@@ -10,7 +9,7 @@ namespace AppBarLib.Models
     /// Represents a single app bar.
     /// </summary>
     [JsonObject(MemberSerialization.OptIn)]
-    internal class AppBar : BaseModel
+    internal class AppBar : BaseConcern
     {
         /// <summary>
         /// Default name of a new app bar.
@@ -56,9 +55,9 @@ namespace AppBarLib.Models
         /// <summary>
         /// App bar constructor.
         /// </summary>
-        /// <param name="context">MVC context.</param>
-        public AppBar(Context context) : base(context)
+        public AppBar()
         {
+
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using AppBarLib.Core.Messaging;
+using AppBarLib.Core;
 using Newtonsoft.Json;
 
 namespace AppBarLib.Models

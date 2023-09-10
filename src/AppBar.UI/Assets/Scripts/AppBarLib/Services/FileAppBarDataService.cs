@@ -4,14 +4,14 @@ using Newtonsoft.Json;
 
 namespace AppBarLib.Services
 {
-    internal class SaveLoadService
+    internal class FileAppBarDataService : IAppBarDataService
     {
         private readonly string _saveFolderPath;
         private const string SaveFileName = "appbar.json";
 
         private string SaveFilePath => Path.Combine(_saveFolderPath, SaveFileName);
 
-        public SaveLoadService(string saveFolderPath)
+        public FileAppBarDataService(string saveFolderPath)
         {
             _saveFolderPath = saveFolderPath;
         }

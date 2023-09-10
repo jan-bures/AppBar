@@ -6,22 +6,13 @@ using AppBarLib.Messages;
 using AppBarLib.Models;
 using JetBrains.Annotations;
 
-namespace AppBarLib.API
+namespace AppBarLib.Services
 {
-    /// <summary>
-    /// Place for mods to register their buttons.
-    /// </summary>
-    [PublicAPI]
-    public class ModButtonRegistry
+    internal class ModButtonService : IModButtonService
     {
-        private MessageCenter _messageCenter;
+        private static MessageCenter MessageCenter => MessageCenter.Instance;
 
         private readonly Dictionary<string, ModButton> _buttons = new Dictionary<string, ModButton>();
-
-        internal ModButtonRegistry(MessageCenter messageCenter)
-        {
-            _messageCenter = messageCenter;
-        }
 
         /// <summary>
         /// Register a button.
@@ -36,7 +27,7 @@ namespace AppBarLib.API
 
             _buttons.Add(button.Id, button);
 
-            _messageCenter.Publish(new ModButtonRegisteredMessage(button));
+            MessageCenter.Publish(new ModButtonRegisteredMessage(button));
         }
 
         /// <summary>
@@ -52,17 +43,17 @@ namespace AppBarLib.API
 
             _buttons.Remove(button.Id);
 
-            _messageCenter.Publish(new ModButtonUnregisteredMessage(button));
+            MessageCenter.Publish(new ModButtonUnregisteredMessage(button));
         }
 
         [CanBeNull]
-        internal ModButton GetById(string id)
+        public ModButton GetById(string id)
         {
             _buttons.TryGetValue(id, out var button);
             return button;
         }
 
-        internal IEnumerable<ModButton> FindByGameState(GameState state)
+        public IEnumerable<ModButton> FindByGameState(GameState state)
         {
             return _buttons.Values.Where(button => button.AllowedGameStates.Contains(state));
         }

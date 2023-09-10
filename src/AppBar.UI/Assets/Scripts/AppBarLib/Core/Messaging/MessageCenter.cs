@@ -20,11 +20,20 @@ namespace AppBarLib.Core.Messaging
 
         #region Fields
 
+        /// <summary>
+        /// The singleton instance.
+        /// </summary>
+        public static MessageCenter Instance { get; } = new MessageCenter();
+
         private readonly Dictionary<Type, Delegate> _messageHandlers = new Dictionary<Type, Delegate>();
 
         #endregion
 
         #region Methods
+
+        private MessageCenter()
+        {
+        }
 
         /// <summary>
         /// Subscribes to the message of the specified type.

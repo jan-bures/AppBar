@@ -5,8 +5,15 @@ namespace AppBarLib.Messages
 {
     internal class ModButtonUnregisteredMessage : IMessage
     {
-        public ModButton Button { get; private set; }
+        /// <summary>
+        /// The button that was unregistered.
+        /// </summary>
+        public ModButton Button { get; }
 
+        /// <summary>
+        /// Creates a new instance of the ModButtonUnregisteredMessage class.
+        /// </summary>
+        /// <param name="button">The button that was unregistered.</param>
         public ModButtonUnregisteredMessage(ModButton button)
         {
             Button = button;

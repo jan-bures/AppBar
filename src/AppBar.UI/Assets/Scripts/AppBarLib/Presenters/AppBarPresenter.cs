@@ -1,14 +1,12 @@
-﻿using AppBarLib.Core;
-using AppBarLib.Models;
+﻿using AppBarLib.Models;
 using AppBarLib.Views;
 using Scripts.AppBarLib.Core;
 
-namespace AppBarLib.Controllers
+namespace AppBarLib.Presenters
 {
     internal class AppBarPresenter : BasePresenter<AppBar, AppBarView>
     {
-        public AppBarPresenter(Context context, AppBar model, AppBarView view)
-            : base(context, model, view)
+        public AppBarPresenter(AppBar model, AppBarView view) : base(model, view)
         {
         }
     }

@@ -1,7 +1,10 @@
 ﻿#if UNITY_EDITOR
 
+using System;
 using AppBarLib.API;
-using AppBarLib.Core;
+using AppBarLib.Models;
+using AppBarLib.Services;
+using JetBrains.Annotations;
 using UnityEngine;
 
 namespace AppBarLib
@@ -11,33 +14,25 @@ namespace AppBarLib
     /// </summary>
     public class AppBarPlugin : MonoBehaviour
     {
-        #region MVC
-
-        /// <summary>
-        /// The context of the MVC framework.
-        /// </summary>
-        private readonly Context _context = new Context();
-
-        /// <summary>
-        /// The registry of all mod buttons.
-        /// </summary>
-        public ModButtonRegistry ModButtonRegistry => _context.ModButtonRegistry;
-
-        #endregion
-
-        #region Plugin
+        private readonly AppBarManager _manager;
 
         /// <summary>
         /// The path to the plugin folder.
         /// </summary>
+        [UsedImplicitly]
         public string PluginFolderPath { get; } = typeof(AppBarPlugin).Assembly.Location;
 
         /// <summary>
         /// The instance of the plugin.
         /// </summary>
+        [PublicAPI]
         public static AppBarPlugin Instance { get; private set; }
 
-        #endregion
+        /// <summary>
+        /// The public API for registering mod buttons.
+        /// </summary>
+        [PublicAPI]
+        public ModButtons ModButtons { get; }
 
         /// <summary>
         /// The constructor of the plugin.
@@ -45,6 +40,14 @@ namespace AppBarLib
         public AppBarPlugin()
         {
             Instance = this;
+
+            _manager = new AppBarManager(PluginFolderPath);
+            ModButtons = _manager.ModButtonsAPI;
+        }
+
+        private void Awake()
+        {
+            _manager.Initialize();
         }
     }
 }

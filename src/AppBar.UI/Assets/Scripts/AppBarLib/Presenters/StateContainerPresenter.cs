@@ -1,31 +1,23 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AppBarLib.Core;
 using AppBarLib.Models;
 using AppBarLib.Views;
 using Scripts.AppBarLib.Core;
 using UnityEngine.UIElements;
 
-namespace AppBarLib.Controllers
+namespace AppBarLib.Presenters
 {
     internal class StateContainerPresenter : BasePresenter<StateContainer, StateContainerView>
     {
-        private List<AppBarPresenter> _appBarControllers = new List<AppBarPresenter>();
+        private List<AppBarPresenter> _appBarPresenters = new List<AppBarPresenter>();
 
-        public StateContainerPresenter(Context context, StateContainer model, StateContainerView view)
-            : base(context, model, view)
+        public StateContainerPresenter(StateContainer model, StateContainerView view) : base(model, view)
         {
-        }
-
-        public override void Initialize()
-        {
-            _appBarControllers.AddRange(
+            _appBarPresenters.AddRange(
                 from appBar in Model.AppBars
                 let appBarView = new AppBarView(new VisualElement())
-                select new AppBarPresenter(Context, appBar, appBarView)
+                select new AppBarPresenter(appBar, appBarView)
             );
-
-            base.Initialize();
         }
     }
 }

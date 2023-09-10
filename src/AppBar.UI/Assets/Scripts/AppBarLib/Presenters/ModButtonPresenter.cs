@@ -1,14 +1,12 @@
-﻿using AppBarLib.Core;
-using AppBarLib.Models;
+﻿using AppBarLib.Models;
 using AppBarLib.Views;
 using Scripts.AppBarLib.Core;
 
-namespace AppBarLib.Controllers
+namespace AppBarLib.Presenters
 {
     internal class ModButtonPresenter : BasePresenter<ModButton, ModButtonView>
     {
-        public ModButtonPresenter(Context context, ModButton model, ModButtonView view)
-            : base(context, model, view)
+        public ModButtonPresenter(ModButton model, ModButtonView view) : base(model, view)
         {
         }
     }
